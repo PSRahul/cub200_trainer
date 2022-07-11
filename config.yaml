@@ -5,4 +5,8 @@ data:
   train_folder: "train"
   val_folder: "val"
   test_folder: "test"
-  
+
+model:
+  use_pretrained: True
+  freeze_params: False
+  num_classes: 200

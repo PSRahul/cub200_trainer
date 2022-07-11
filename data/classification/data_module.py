@@ -2,18 +2,21 @@ import pytorch_lightning as pl
 from torch.utils.data import random_split, DataLoader
 from torchvision.datasets import ImageFolder
 from torchvision import transforms
+from typing import Optional
 
 import os
 
-class MNISTDataModule(pl.LightningDataModule):
+class ClassificationDataModule(pl.LightningDataModule):
     def __init__(self, config):
         super().__init__()
-        self.config = config
+        self.cfg = config
         self.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))])
+        self.prepare_data()
 
     def prepare_data(self):
         
-        train_dataset=ImageFolder(root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["train_folder"]))
+        train_dataset=ImageFolder(root=os.path.join(self.cfg["data"]["root_folder"],
+                                                        self.cfg["data"]["train_folder"]))
         val_dataset=ImageFolder(root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["val_folder"]))
         test_dataset=ImageFolder(root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["test_folder"]))
 
