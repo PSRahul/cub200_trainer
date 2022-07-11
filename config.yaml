@@ -1,5 +1,8 @@
 version: 1
 
-items:
-  thing1: huey
+data:
+  root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/v2_sample/"
+  train_folder: "train"
+  val_folder: "val"
+  test_folder: "test"
   
