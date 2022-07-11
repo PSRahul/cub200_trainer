@@ -5,7 +5,7 @@ This repository provides recipes in **PyTorch Lightning** for task of object cla
 
 Feel free to fork and create PRs
 
-<ol> To Do
+<ol> Work in Progress
   <li>Dataset Class</li>
   <li>Network Class</li>
   <li>Logging</li>
