@@ -1,2 +1,3 @@
-# cub200_trainer
-This repository provides framework to train the CUB 200 dataset for image classification
+This repository provides recipes in **PyTorch Lightning** for task of classification and detection.
+
+Feel free to fork and create PRs
