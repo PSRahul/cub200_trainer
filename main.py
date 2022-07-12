@@ -3,6 +3,8 @@ import yaml
 from data.classification.data_module import ClassificationDataModule
 from yaml.loader import SafeLoader
 from network.model import ResNet18Model
+from trainer import LightningTrainer
+from network.network_module import ClassificationModel
 
 
 def load_config():
@@ -15,12 +17,15 @@ def load_config():
 def main():
     cfg = load_config()
 
-    model = ResNet18Model(cfg)
+    pytorch_model = ResNet18Model(cfg)
     data = ClassificationDataModule(
-        cfg,
-        train_transforms=model.get_train_transforms(),
-        test_transforms=model.get_test_transforms(),
+        config=cfg,
+        train_transforms=pytorch_model.get_train_transforms(),
+        test_transforms=pytorch_model.get_test_transforms(),
     )
+    model = ClassificationModel(pytorch_model)
+    trainer = LightningTrainer(cfg=cfg)
+    trainer.tune_learning_rate(model, data)
 
 
 if __name__ == "__main__":

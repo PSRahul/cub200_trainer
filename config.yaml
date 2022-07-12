@@ -10,3 +10,8 @@ model:
   use_pretrained: True
   freeze_params: False
   num_classes: 200
+
+trainer:
+  exp_name: "ResNet"
+  checkpoint_dir: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/"
+  max_epochs: 100

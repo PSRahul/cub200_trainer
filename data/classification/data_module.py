@@ -12,24 +12,23 @@ class ClassificationDataModule(pl.LightningDataModule):
     def __init__(self, config,train_transforms,test_transforms):
         super().__init__()
         self.cfg = config
-        self.train_transforms=train_transforms
-        self.test_transforms=test_transforms
-        self.prepare_data(train_transforms,test_transforms)
+        self.train_transforms_list=train_transforms
+        self.test_transforms_list=test_transforms
+        self.prepare_data()
 
-    def prepare_data(self,train_transforms,test_transforms):
+    def prepare_data(self):
         
         train_dataset=ImageFolder(
             root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["train_folder"]),
-            transform=train_transforms
-            )
+            transform=self.train_transforms_list,            )
 
         val_dataset=ImageFolder(
             root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["val_folder"]), 
-            transform=test_transforms)
+            transform=self.test_transforms_list)
 
         test_dataset=ImageFolder(
             root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["test_folder"]), 
-            transform=test_transforms)
+            transform=self.test_transforms_list)
 
         print("Datasets are Accessible")            
     
@@ -39,19 +38,19 @@ class ClassificationDataModule(pl.LightningDataModule):
         if stage == "fit" or stage is None:
             self.train_dataset=ImageFolder(
             root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["train_folder"]),
-            transform=self.train_transforms
+            transform=self.train_transforms_list
             )
 
-        val_dataset=ImageFolder(
-            self.root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["val_folder"]), 
-            transform=self.test_transforms
+            self.val_dataset=ImageFolder(
+            root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["val_folder"]), 
+            transform=self.test_transforms_list
             )
 
         # Assign test dataset for use in dataloader(s)
         if stage == "test" or stage is None:
             self.test_dataset=ImageFolder(
             root=os.path.join(self.cfg["data"]["root_folder"],self.cfg["data"]["test_folder"]), 
-            transform=self.test_transforms
+            transform=self.test_transforms_list
             )
 
         
