@@ -31,10 +31,6 @@ class ClassificationModel(pl.LightningModule):
         train_acc = accuracy(y_acc, y)
         self.log("train_acc", train_acc, prog_bar=True)
 
-        # sch = self.lr_schedulers()
-        # if (batch_idx + 1) % 50 == 0:
-        #    sch.step()
-
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -60,10 +56,4 @@ class ClassificationModel(pl.LightningModule):
 
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.model.parameters())
-        scheduler = ReduceLROnPlateau(optimizer, "min")
-
-        return {
-            "optimizer": optimizer,
-            "lr_scheduler": scheduler,
-            "monitor": "train_loss",
-        }
+        return optimizer

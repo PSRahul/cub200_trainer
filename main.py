@@ -17,7 +17,7 @@ def load_config():
 def main():
     cfg = load_config()
 
-    pytorch_model = ResNet50Model(cfg)
+    pytorch_model = ResNet18Model(cfg)
     data = ClassificationDataModule(
         config=cfg,
         train_transforms=pytorch_model.get_train_transforms(),
