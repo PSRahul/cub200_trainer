@@ -16,5 +16,5 @@ model:
 
 trainer:
   exp_name: "ResNet"
-  checkpoint_dir: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ResNet"
-  max_epochs: 100
+  checkpoint_dir: "checkpoints/ResNet"
+  max_epochs: 200
