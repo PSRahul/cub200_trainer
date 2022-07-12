@@ -3,7 +3,7 @@ version: 1
 data:
   root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/v2/CUB_200_2011/"
   train_folder: "train_sample/images"
-  val_folder: "val/images"
+  val_folder: "train_sample/images"
   test_folder: "test/images"
   train_batch_size: 1
   val_batch_size: 1

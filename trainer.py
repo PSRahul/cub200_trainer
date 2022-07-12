@@ -31,7 +31,7 @@ class LightningTrainer:
             max_epochs=cfg["trainer"]["max_epochs"],
             default_root_dir=checkpoint_dir,
             auto_scale_batch_size="binsearch",
-            log_every_n_steps=10,
+            log_every_n_steps=1,
         )
 
     def tune_learning_rate(self, model, data):

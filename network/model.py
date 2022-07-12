@@ -75,12 +75,28 @@ class ResNet50Model(nn.Module):
         )
         self.model.fc = nn.Linear(2048, cfg["model"]["num_classes"])
 
+        self.relu = nn.ReLU(inplace=False)
+
     def forward(self, x):
-        return self.model.forward(x)
+        x = self.model.forward(x)
+        x = self.relu(x)
+        return x
 
     def print_details(self):
         batch_size = 32
         summary(self.model, input_size=(batch_size, 3, 224, 224))
+
+    def get_sample_transforms(self):
+        sample_transforms = transforms.Compose(
+            [
+                transforms.Resize(224),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+                ),
+            ]
+        )
+        return sample_transforms
 
     def get_test_transforms(self):
         test_transforms = transforms.Compose(
