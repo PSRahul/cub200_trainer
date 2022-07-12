@@ -8,11 +8,11 @@ from torchvision import transforms
 import torch
 
 
-class ResNet18Model:
+class ResNet18Model(nn.Module):
     def __init__(self, cfg):
 
         # weights = ResNet18_Weights.DEFAULT
-
+        super().__init__()
         self.model = torch.hub.load(
             "pytorch/vision:v0.10.0",
             "resnet18",
@@ -22,6 +22,9 @@ class ResNet18Model:
             self.model, cfg["model"]["freeze_params"]
         )
         self.model.fc = nn.Linear(512, cfg["model"]["num_classes"])
+
+    def forward(self, x):
+        return self.model.forward(x)
 
     def print_details(self):
         batch_size = 32

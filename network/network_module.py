@@ -24,17 +24,18 @@ class ClassificationModel(pl.LightningModule):
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         self.log("train_loss", loss)
-        loss_softmax = F.softmax(y_hat)
+        loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         train_acc = accuracy(y_acc, y)
         self.log("train_acc", train_acc)
+        return loss
 
     def validation_step(self, batch, batch_idx):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         self.log("val_loss", loss)
-        loss_softmax = F.softmax(y_hat)
+        loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         val_acc = accuracy(y_acc, y)
         self.log("val_acc", val_acc)
@@ -44,7 +45,7 @@ class ClassificationModel(pl.LightningModule):
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         self.log("test_loss", loss)
-        loss_softmax = F.softmax(y_hat)
+        loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         self.train_acc(y_acc, y)
         test_acc = accuracy(y_acc, y)

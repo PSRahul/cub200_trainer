@@ -23,6 +23,7 @@ def main():
         train_transforms=pytorch_model.get_train_transforms(),
         test_transforms=pytorch_model.get_test_transforms(),
     )
+    data.setup()
     model = ClassificationModel(pytorch_model)
     trainer = LightningTrainer(cfg=cfg)
     trainer.tune_learning_rate(model, data)
