@@ -1,5 +1,4 @@
 from sched import scheduler
-from syslog import LOG_SYSLOG
 from torchmetrics.functional import accuracy
 import torch
 import pytorch_lightning as pl
@@ -7,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchmetrics
 from torch.optim.lr_scheduler import ReduceLROnPlateau
+import sys
 
 
 class ClassificationModel(pl.LightningModule):
@@ -25,8 +25,8 @@ class ClassificationModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
+        loss_softmax = F.softmax(y_hat, dim=1)
         self.log("train_loss", loss, prog_bar=True)
-        loss_softmax = F.softmax(y_hat, dim=0)
         y_acc = torch.argmax(loss_softmax, axis=1)
         train_acc = accuracy(y_acc, y)
         self.log("train_acc", train_acc, prog_bar=True)
