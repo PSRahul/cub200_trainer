@@ -25,14 +25,14 @@ class ClassificationModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
-        self.log("train_loss", loss)
+        self.log("train_loss", loss, prog_bar=True)
         loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         train_acc = accuracy(y_acc, y)
-        self.log("train_acc", train_acc)
+        self.log("train_acc", train_acc, prog_bar=True)
 
-        #sch = self.lr_schedulers()
-        #if (batch_idx + 1) % 50 == 0:
+        # sch = self.lr_schedulers()
+        # if (batch_idx + 1) % 50 == 0:
         #    sch.step()
 
         return loss
@@ -41,11 +41,11 @@ class ClassificationModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
-        self.log("val_loss", loss)
+        self.log("val_loss", loss, prog_bar=True)
         loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         val_acc = accuracy(y_acc, y)
-        self.log("val_acc", val_acc)
+        self.log("val_acc", val_acc, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
         x, y = batch

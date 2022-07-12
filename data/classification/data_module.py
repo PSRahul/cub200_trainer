@@ -69,10 +69,22 @@ class ClassificationDataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.train_dataset, batch_size=32, num_workers=6)
+        return DataLoader(
+            self.train_dataset,
+            batch_size=self.cfg["data"]["train_batch_size"],
+            num_workers=6,
+        )
 
     def val_dataloader(self):
-        return DataLoader(self.val_dataset, batch_size=32, num_workers=6)
+        return DataLoader(
+            self.val_dataset,
+            batch_size=self.cfg["data"]["val_batch_size"],
+            num_workers=6,
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.test_dataset, batch_size=32, num_workers=6)
+        return DataLoader(
+            self.test_dataset,
+            batch_size=self.cfg["data"]["test_batch_size"],
+            num_workers=6,
+        )
