@@ -7,3 +7,5 @@ apt-get update && apt-get install -y python3 python3-dev python3-pip  build-esse
 
 
 podman commit d24ff5be8b21 rsr_trainer
+
+chmod 777 -R MasterThesis/

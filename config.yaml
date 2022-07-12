@@ -5,9 +5,9 @@ data:
   train_folder: "train/images"
   val_folder: "val/images"
   test_folder: "test/images"
-  train_batch_size: 128
-  val_batch_size: 128
-  test_batch_size: 128
+  train_batch_size: 64
+  val_batch_size: 64
+  test_batch_size: 64
 
 model:
   use_pretrained: True
