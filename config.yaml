@@ -8,7 +8,7 @@ data:
 
 model:
   use_pretrained: True
-  freeze_params: False
+  freeze_params: True
   num_classes: 200
 
 trainer:

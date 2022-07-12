@@ -1,3 +1,4 @@
+from sched import scheduler
 from syslog import LOG_SYSLOG
 from torchmetrics.functional import accuracy
 import torch
@@ -5,6 +6,7 @@ import pytorch_lightning as pl
 import torch.nn as nn
 import torch.nn.functional as F
 import torchmetrics
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 
 class ClassificationModel(pl.LightningModule):
@@ -28,6 +30,11 @@ class ClassificationModel(pl.LightningModule):
         y_acc = torch.argmax(loss_softmax, axis=1)
         train_acc = accuracy(y_acc, y)
         self.log("train_acc", train_acc)
+
+        #sch = self.lr_schedulers()
+        #if (batch_idx + 1) % 50 == 0:
+        #    sch.step()
+
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -52,4 +59,11 @@ class ClassificationModel(pl.LightningModule):
         self.log("test_acc", test_acc)
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.model.parameters())
+        optimizer = torch.optim.Adam(self.model.parameters())
+        scheduler = ReduceLROnPlateau(optimizer, "min")
+
+        return {
+            "optimizer": optimizer,
+            "lr_scheduler": scheduler,
+            "monitor": "train_loss",
+        }
