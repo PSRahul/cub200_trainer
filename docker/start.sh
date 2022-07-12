@@ -5,3 +5,5 @@ podman run -v "/mnt/data/home/rsr/MasterThesis/:/home/psrahul/MasterThesis/"  --
 apt-get update && apt-get install -y python3 python3-dev python3-pip  build-essential cmake \
     && pip3 install --no-cache-dir --upgrade pip setuptools
 
+
+podman commit d24ff5be8b21 rsr_trainer
