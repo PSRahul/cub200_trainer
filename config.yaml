@@ -4,8 +4,8 @@ debug: False
 
 data:
   root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/sample/CUB_200_2011/"
-  train_folder: "train/images"
-  val_folder: "val/images"
+  train_folder: "train_each_class_1/images"
+  val_folder: "train_each_class_1/images"
   test_folder: "test/images"
   train_batch_size: 32
   val_batch_size: 32
@@ -17,7 +17,7 @@ model:
   num_classes: 200
 
 tune:
-  enable: True
+  enable: False
   num_trials: 20
 
 trainer:

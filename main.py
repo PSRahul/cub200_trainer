@@ -3,7 +3,7 @@ import tracemalloc
 import yaml
 from data.classification.data_module import ClassificationDataModule
 from yaml.loader import SafeLoader
-from network.model import ResNet18Model, ResNet50Model
+from network.model import ResNet18Model, ResNet50Model, ViTB16Model
 from trainer import LightningTrainer
 from network.network_module import ClassificationModel
 import argparse
@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
     cfg = load_config(args.c)
-    pytorch_model = ResNet50Model(cfg)
+    pytorch_model = ViTB16Model(cfg)
 
     if cfg["debug"]:
         print("Debug Mode Enabled")
@@ -46,6 +46,8 @@ def main():
 
     if cfg["tune"]["enable"]:
         model.hparams.lr = trainer.optuna_tune(model, data, cfg["tune"]["num_trials"])
+    else:
+        model.hparams["lr"] = 1e-5
     trainer.train(model, data)
 
 

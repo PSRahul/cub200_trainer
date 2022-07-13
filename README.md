@@ -22,6 +22,7 @@ To start a classification training run `python main.py -c config.yaml`
 ### Image Classification
 1. ResNet18
 2. ResNet50
+3. ViT B16
 ## Work in Progress
 ### Image Classification
  1. ViT
