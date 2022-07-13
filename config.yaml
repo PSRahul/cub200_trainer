@@ -7,9 +7,9 @@ data:
   train_folder: "train_each_class_1/images"
   val_folder: "train_each_class_1/images"
   test_folder: "test/images"
-  train_batch_size: 32
-  val_batch_size: 32
-  test_batch_size: 32
+  train_batch_size: 128
+  val_batch_size: 128
+  test_batch_size: 128
 
 model:
   use_pretrained: True
@@ -21,6 +21,6 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "ResNet"
-  checkpoint_dir: "checkpoints/ResNet"
+  exp_name: "ViTB16"
+  checkpoint_dir: "checkpoints/ViTB16"
   max_epochs: 200
