@@ -2,7 +2,11 @@
 # ⚡Lightning Fast Trainer⚡
 
 This repository provides recipes in **PyTorch Lightning** for task of object classification and detection.
+## Features
 
+1. Fully functional network and data modules configurable by the custom configurations
+2. Tensorboard Logging
+3. Automatic Learning Rate Optimisation with Optuna
 ## Completed
 
 ### Image Classification
