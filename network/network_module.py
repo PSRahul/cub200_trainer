@@ -23,11 +23,14 @@ class ClassificationModel(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
+
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         loss_softmax = F.softmax(y_hat, dim=1)
         self.log("train_loss", loss, prog_bar=True)
         y_acc = torch.argmax(loss_softmax, axis=1)
+        # print("Class Label", y)
+        # print("Model ", y_acc)
         train_acc = accuracy(y_acc, y)
         self.log("train_acc", train_acc, prog_bar=True)
 
@@ -38,7 +41,7 @@ class ClassificationModel(pl.LightningModule):
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
         self.log("val_loss", loss, prog_bar=True)
-        loss_softmax = F.softmax(y_hat, dim=0)
+        loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         val_acc = accuracy(y_acc, y)
         self.log("val_acc", val_acc, prog_bar=True)
@@ -55,5 +58,5 @@ class ClassificationModel(pl.LightningModule):
         self.log("test_acc", test_acc)
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.model.parameters())
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=0.00001)
         return optimizer

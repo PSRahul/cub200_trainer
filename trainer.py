@@ -27,10 +27,12 @@ class LightningTrainer:
             logger=logger,
             accelerator="gpu",
             devices=1,
-            callbacks=[EarlyStopping(monitor="val_loss", mode="min"), lr_monitor],
+            callbacks=[
+                EarlyStopping(monitor="val_loss", mode="min", verbose=True, patience=5)
+            ],
+            # ],  # lr_monitor],
             max_epochs=cfg["trainer"]["max_epochs"],
             default_root_dir=checkpoint_dir,
-            auto_scale_batch_size="binsearch",
             log_every_n_steps=1,
         )
 

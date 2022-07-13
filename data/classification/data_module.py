@@ -73,6 +73,7 @@ class ClassificationDataModule(pl.LightningDataModule):
             self.train_dataset,
             batch_size=self.cfg["data"]["train_batch_size"],
             num_workers=3,
+            shuffle=True,
         )
 
     def val_dataloader(self):
@@ -80,6 +81,7 @@ class ClassificationDataModule(pl.LightningDataModule):
             self.val_dataset,
             batch_size=self.cfg["data"]["val_batch_size"],
             num_workers=3,
+            shuffle=True,
         )
 
     def test_dataloader(self):
@@ -87,4 +89,5 @@ class ClassificationDataModule(pl.LightningDataModule):
             self.test_dataset,
             batch_size=self.cfg["data"]["test_batch_size"],
             num_workers=3,
+            shuffle=True,
         )

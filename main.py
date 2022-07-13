@@ -1,4 +1,5 @@
 import sys
+import tracemalloc
 import yaml
 from data.classification.data_module import ClassificationDataModule
 from yaml.loader import SafeLoader
@@ -23,16 +24,21 @@ def load_config(config_file):
 
 
 def main():
-    
+
     args = get_args()
-
     cfg = load_config(args.c)
-
     pytorch_model = ResNet50Model(cfg)
+
+    if cfg["debug"]:
+        print("Debug Mode Enabled")
+        train_transforms = pytorch_model.get_sample_transforms()
+        test_transforms = pytorch_model.get_sample_transforms()
+    else:
+        train_transforms = pytorch_model.get_train_transforms()
+        test_transforms = pytorch_model.get_test_transforms()
+
     data = ClassificationDataModule(
-        config=cfg,
-        train_transforms=pytorch_model.get_train_transforms(),
-        test_transforms=pytorch_model.get_test_transforms(),
+        config=cfg, train_transforms=train_transforms, test_transforms=test_transforms
     )
     data.setup()
     model = ClassificationModel(pytorch_model)
