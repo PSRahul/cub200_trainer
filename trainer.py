@@ -79,7 +79,7 @@ class LightningTrainer:
             logger=False,
             accelerator="gpu",
             devices=1,
-            max_epochs=5,
+            max_epochs=10,
         )
         trainer.fit(
             model=model,

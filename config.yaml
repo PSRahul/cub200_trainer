@@ -18,7 +18,7 @@ model:
 
 tune:
   enable: True
-  num_trials: 10
+  num_trials: 20
 
 trainer:
   exp_name: "ResNet"
