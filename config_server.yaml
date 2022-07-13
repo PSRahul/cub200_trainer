@@ -16,6 +16,10 @@ model:
   freeze_params: False
   num_classes: 200
 
+tune:
+  enable: True
+  num_trials: 10
+  
 trainer:
   exp_name: "ResNet"
   checkpoint_dir: "checkpoints/ResNet"

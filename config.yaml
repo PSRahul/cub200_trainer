@@ -4,7 +4,7 @@ debug: False
 
 data:
   root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/sample/CUB_200_2011/"
-  train_folder: "train_each_class_1/images"
+  train_folder: "train/images"
   val_folder: "val/images"
   test_folder: "test/images"
   train_batch_size: 32
