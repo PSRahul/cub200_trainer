@@ -3,8 +3,8 @@ version: 1
 debug: False
 
 data:
-  root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/v2/CUB_200_2011/"
-  train_folder: "train/images"
+  root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/sample/CUB_200_2011/"
+  train_folder: "train_each_class_1/images"
   val_folder: "val/images"
   test_folder: "test/images"
   train_batch_size: 32
@@ -15,6 +15,11 @@ model:
   use_pretrained: True
   freeze_params: False
   num_classes: 200
+
+tune:
+  enable: True
+  num_trials: 10
+
 trainer:
   exp_name: "ResNet"
   checkpoint_dir: "checkpoints/ResNet"

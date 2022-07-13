@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
     cfg = load_config(args.c)
-    pytorch_model = ResNet50Model(cfg)
+    pytorch_model = ResNet18Model(cfg)
 
     if cfg["debug"]:
         print("Debug Mode Enabled")
@@ -43,8 +43,9 @@ def main():
     data.setup()
     model = ClassificationModel(pytorch_model)
     trainer = LightningTrainer(cfg=cfg)
-    # trainer.tune(model)
-    # trainer.tune_learning_rate(model, data)
+
+    if cfg["tune"]["enable"]:
+        model.hparams.lr = trainer.optuna_tune(model, data, cfg["tune"]["num_trials"])
     trainer.train(model, data)
 
 
