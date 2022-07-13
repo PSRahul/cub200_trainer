@@ -3,11 +3,14 @@
 
 This repository provides recipes in **PyTorch Lightning** for task of object classification and detection.
 
+## Completed
 
-<ol> Work in Progress
-  <li>Image Classification - ResNet</li>
-</ol>
-<ol> To Do
-  <li>Image Classification - ViT</li>
-  <li>Object Detection - ViT</li>
-</ol>
+### Image Classification
+1. ResNet18
+2. ResNet50
+## Work in Progress
+### Image Classification
+ 1. ViT
+## To Do
+  ### Object Detection
+  1. Vision Transformer Backbones
