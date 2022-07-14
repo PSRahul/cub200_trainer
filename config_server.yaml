@@ -17,10 +17,10 @@ model:
   num_classes: 200
 
 tune:
-  enable: True
+  enable: False
   num_trials: 20
   
 trainer:
   exp_name: "ViTB16"
-  checkpoint_dir: "checkpoints/ViTB16/optuna"
+  checkpoint_dir: "checkpoints/ViTB16/"
   max_epochs: 200
