@@ -22,5 +22,5 @@ tune:
   
 trainer:
   exp_name: "ResNet"
-  checkpoint_dir: "checkpoints/ResNet"
+  checkpoint_dir: "checkpoints/ResNet50_Adadelta_lr=1e-5"
   max_epochs: 200
