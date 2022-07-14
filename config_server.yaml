@@ -17,7 +17,7 @@ model:
   num_classes: 200
 
 tune:
-  enable: True
+  enable: False
   num_trials: 20
   
 trainer:
