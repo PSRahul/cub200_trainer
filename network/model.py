@@ -193,8 +193,8 @@ class ViTB16Model(nn.Module):
         train_transforms = transforms.Compose(
             [
                 transforms.ColorJitter(brightness=0.3, hue=0.3),
-                transforms.RandomHorizontalFlip(p=0.5),
-                transforms.RandomVerticalFlip(p=0.5),
+                # transforms.RandomHorizontalFlip(p=0.5),
+                # transforms.RandomVerticalFlip(p=0.5),
                 transforms.Resize(256),
                 transforms.RandomResizedCrop(224),
                 transforms.ToTensor(),
