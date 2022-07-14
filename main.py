@@ -31,7 +31,7 @@ import sys
 
 class Logger(object):
     def __init__(self, cfg, checkpoint_dir):
-        os.mknod(checkpoint_dir)
+        # os.mknod(checkpoint_dir)
         self.terminal = sys.stdout
         self.log = open(checkpoint_dir, "w")
 
@@ -60,7 +60,7 @@ def main():
     log_file = os.path.join(checkpoint_dir, "log.log")
     sys.stdout = Logger(cfg, log_file)
 
-    pytorch_model = ResNet50Model(cfg)
+    pytorch_model = ViTB16Model(cfg)
 
     logger_pytorch = logging.getLogger("pytorch_lightning")
 

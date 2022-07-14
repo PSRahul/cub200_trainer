@@ -25,8 +25,8 @@ class LightningTrainer:
         self.trainer = pl.Trainer(
             enable_checkpointing=True,
             logger=logger,
-            # accelerator="gpu",
-            # devices=1,
+            accelerator="gpu",
+            devices=1,
             callbacks=[
                 EarlyStopping(monitor="val_loss", mode="min", verbose=True, patience=5)
             ],
@@ -73,8 +73,8 @@ class LightningTrainer:
         trainer = pl.Trainer(
             enable_checkpointing=False,
             logger=False,
-            # accelerator="gpu",
-            # devices=1,
+            accelerator="gpu",
+            devices=1,
             max_epochs=10,
         )
         trainer.fit(
