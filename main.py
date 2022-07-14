@@ -27,7 +27,7 @@ def main():
 
     args = get_args()
     cfg = load_config(args.c)
-    pytorch_model = ViTB16Model(cfg)
+    pytorch_model = ResNet50Model(cfg)
 
     if cfg["debug"]:
         print("Debug Mode Enabled")
