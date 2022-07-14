@@ -46,8 +46,6 @@ def main():
 
     if cfg["tune"]["enable"]:
         model.hparams.lr = trainer.optuna_tune(model, data, cfg["tune"]["num_trials"])
-    else:
-        model.hparams["lr"] = 1e-5
     trainer.train(model, data)
 
 

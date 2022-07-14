@@ -3,13 +3,13 @@ version: 1
 debug: False
 
 data:
-  root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/sample/CUB_200_2011/"
-  train_folder: "train_each_class_1/images"
-  val_folder: "train_each_class_1/images"
+  root_folder: "/home/psrahul/MasterThesis/datasets/CUB_200_2011/v2/CUB_200_2011/"
+  train_folder: "train/images"
+  val_folder: "val/images"
   test_folder: "test/images"
-  train_batch_size: 128
-  val_batch_size: 128
-  test_batch_size: 128
+  train_batch_size: 32
+  val_batch_size: 32
+  test_batch_size: 32
 
 model:
   use_pretrained: True
@@ -17,7 +17,7 @@ model:
   num_classes: 200
 
 tune:
-  enable: False
+  enable: True
   num_trials: 20
 
 trainer:
