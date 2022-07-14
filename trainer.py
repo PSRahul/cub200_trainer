@@ -12,16 +12,11 @@ import joblib
 import pathlib
 import logging
 
-now = datetime.now()
-
 
 class LightningTrainer:
-    def __init__(self, cfg):
-        date_save_string = now.strftime("%d%m%Y_%H%M")
+    def __init__(self, cfg, checkpoint_dir):
 
-        self.checkpoint_dir = os.path.join(
-            cfg["trainer"]["checkpoint_dir"], date_save_string
-        )
+        self.checkpoint_dir = checkpoint_dir
         pathlib.Path(self.checkpoint_dir).mkdir(parents=True, exist_ok=True)
         logger = TensorBoardLogger(self.checkpoint_dir, name=cfg["trainer"]["exp_name"])
 

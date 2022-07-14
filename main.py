@@ -9,6 +9,7 @@ from network.network_module import ClassificationModel
 import argparse
 import logging
 import os
+from datetime import datetime
 
 
 def get_args():
@@ -25,9 +26,40 @@ def load_config(config_file):
     return config
 
 
+import sys
+
+
+class Logger(object):
+    def __init__(self, cfg, checkpoint_dir):
+        os.mknod(checkpoint_dir)
+        self.terminal = sys.stdout
+        self.log = open(checkpoint_dir, "w")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+
+    def flush(self):
+        # this flush method is needed for python 3 compatibility.
+        # this handles the flush command by doing nothing.
+        # you might want to specify some extra behavior here.
+        pass
+
+
 def main():
     args = get_args()
     cfg = load_config(args.c)
+    now = datetime.now()
+    date_save_string = now.strftime("%d%m%Y_%H%M")
+    checkpoint_dir = os.path.join(
+        "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/",
+        cfg["trainer"]["checkpoint_dir"],
+        date_save_string,
+    )
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    log_file = os.path.join(checkpoint_dir, "log.log")
+    sys.stdout = Logger(cfg, log_file)
+
     pytorch_model = ResNet50Model(cfg)
 
     logger_pytorch = logging.getLogger("pytorch_lightning")
@@ -40,10 +72,18 @@ def main():
         train_transforms = pytorch_model.get_train_transforms()
         test_transforms = pytorch_model.get_test_transforms()
 
-    trainer = LightningTrainer(cfg=cfg)
+    trainer = LightningTrainer(cfg, checkpoint_dir)
     logger_pytorch.addHandler(
         logging.FileHandler(os.path.join(trainer.checkpoint_dir, "trainer.log"))
     )
+
+    logging.basicConfig(
+        filename=os.path.join(trainer.checkpoint_dir, "logging.log"),
+        format="%(asctime)s %(message)s",
+        filemode="w",
+    )
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
 
     data = ClassificationDataModule(
         config=cfg, train_transforms=train_transforms, test_transforms=test_transforms
