@@ -19,8 +19,8 @@ model:
 tune:
   enable: False
   num_trials: 20
-  
+
 trainer:
   exp_name: "ViTB16"
-  checkpoint_dir: "checkpoints/ViTB16/"
+  checkpoint_dir: "checkpoints/ViTB16_Adam3e-3/"
   max_epochs: 200
