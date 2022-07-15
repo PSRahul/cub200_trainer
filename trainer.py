@@ -10,17 +10,15 @@ from pytorch_lightning.callbacks import LearningRateMonitor
 import optuna
 import joblib
 import pathlib
-
-now = datetime.now()
+import logging
+from network.models_pytorch import ResNet18Model, ResNet50Model, ViTB16Model
+from network.network_module import ClassificationModel
 
 
 class LightningTrainer:
-    def __init__(self, cfg):
-        date_save_string = now.strftime("%d%m%Y_%H%M")
+    def __init__(self, cfg, checkpoint_dir):
 
-        self.checkpoint_dir = os.path.join(
-            cfg["trainer"]["checkpoint_dir"], date_save_string
-        )
+        self.checkpoint_dir = checkpoint_dir
         pathlib.Path(self.checkpoint_dir).mkdir(parents=True, exist_ok=True)
         logger = TensorBoardLogger(self.checkpoint_dir, name=cfg["trainer"]["exp_name"])
 
@@ -61,26 +59,33 @@ class LightningTrainer:
             val_dataloaders=data.val_dataloader(),
         )
 
-    def optuna_tune(self, model, data, num_trials):
+    def optuna_tune(self, pytorch_model_name, cfg, data):
         lr_study = optuna.create_study(direction="minimize")
         lr_study.optimize(
-            lambda trial: self.optuna_objective(trial, model=model, data=data),
-            n_trials=num_trials,
+            lambda trial: self.optuna_objective(
+                trial, pytorch_model_name, cfg=cfg, data=data
+            ),
+            n_trials=cfg["tune"]["num_trials"],
         )
         joblib.dump(lr_study, os.path.join(self.checkpoint_dir, "study.pkl"))
         print("Model Tuned : Best Learning Rate", lr_study.best_params["learning_rate"])
         return lr_study.best_params["learning_rate"]
 
-    def optuna_objective(self, trial, model, data):
+    def optuna_objective(self, trial, pytorch_model_name, cfg, data):
+
         lr = trial.suggest_float("learning_rate", 1e-6, 1e-3, log=True)
-        model.hparams.lr = lr
         trainer = pl.Trainer(
             enable_checkpointing=False,
             logger=False,
             accelerator="gpu",
             devices=1,
-            max_epochs=10,
+            max_epochs=cfg["tune"]["max_epochs"],
         )
+        pytorch_model = pytorch_model_name(cfg)
+
+        model = ClassificationModel(pytorch_model)
+        model.hparams.lr = lr
+
         trainer.fit(
             model=model,
             train_dataloaders=data.train_dataloader(),

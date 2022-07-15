@@ -1,4 +1,4 @@
-version: 1
+version: 4
 
 debug: False
 
@@ -7,20 +7,23 @@ data:
   train_folder: "train/images"
   val_folder: "val/images"
   test_folder: "test/images"
-  train_batch_size: 64
-  val_batch_size: 64
-  test_batch_size: 64
+  train_batch_size: 32
+  val_batch_size: 32
+  test_batch_size: 32
 
 model:
+  name: ResNet50Model
+  tune_name: ResNet50Model
   use_pretrained: True
   freeze_params: False
   num_classes: 200
 
 tune:
-  enable: False
+  enable: True
+  max_epochs: 3
   num_trials: 20
-  
+
 trainer:
-  exp_name: "ResNet"
-  checkpoint_dir: "checkpoints/ResNet"
+  exp_name: "optuna_lr"
+  checkpoint_dir: "checkpoints/ResNet50/optuna_lr"
   max_epochs: 200

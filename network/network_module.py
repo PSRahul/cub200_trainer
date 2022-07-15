@@ -58,5 +58,10 @@ class ClassificationModel(pl.LightningModule):
         self.log("test_acc", test_acc)
 
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(self.model.parameters(), lr=3.275e-5)
+        optimizer = torch.optim.Adam(
+            self.model.parameters(), lr=self.hparams.lr  # lr=1e-5)
+        )
         return optimizer
+
+
+# https://github.com/google-research/vision_transformer/issues/153
