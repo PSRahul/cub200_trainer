@@ -58,7 +58,8 @@ def main():
     log_file = os.path.join(checkpoint_dir, "log.log")
     sys.stdout = Logger(cfg, log_file)
 
-    pytorch_model = ViTB16Model(cfg)
+    pytorch_model_name = globals()[cfg["model"]["name"]]
+    pytorch_model = pytorch_model_name(cfg)
     logger_pytorch = logging.getLogger("pytorch_lightning")
 
     if cfg["debug"]:
@@ -89,7 +90,9 @@ def main():
     model = ClassificationModel(pytorch_model)
 
     if cfg["tune"]["enable"]:
-        model.hparams.lr = trainer.optuna_tune(model, data, cfg["tune"]["num_trials"])
+        model.hparams.lr = trainer.optuna_tune(
+            pytorch_model_name, cfg, data, 
+        )
     trainer.train(model, data)
 
 
