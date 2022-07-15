@@ -22,5 +22,5 @@ tune:
 
 trainer:
   exp_name: "ViTB16"
-  checkpoint_dir: "checkpoints/ViTB16_Adam3e-3/"
+  checkpoint_dir: "checkpoints/ViTB16_AdamW1e-5/"
   max_epochs: 200

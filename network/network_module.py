@@ -58,7 +58,7 @@ class ClassificationModel(pl.LightningModule):
         self.log("test_acc", test_acc)
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.model.parameters(), lr=3e-3)
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=1e-5)
         # lr=self.hparams.lr)
         return optimizer
 
