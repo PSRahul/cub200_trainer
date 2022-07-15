@@ -72,7 +72,7 @@ class LightningTrainer:
         return lr_study.best_params["learning_rate"]
 
     def optuna_objective(self, trial, pytorch_model_name, cfg, data):
-        print(pytorch_model_name)
+
         lr = trial.suggest_float("learning_rate", 1e-6, 1e-3, log=True)
         trainer = pl.Trainer(
             enable_checkpointing=False,

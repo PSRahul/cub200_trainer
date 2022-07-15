@@ -91,7 +91,9 @@ def main():
 
     if cfg["tune"]["enable"]:
         model.hparams.lr = trainer.optuna_tune(
-            pytorch_model_name, cfg, data, 
+            pytorch_model_name,
+            cfg,
+            data,
         )
     trainer.train(model, data)
 
