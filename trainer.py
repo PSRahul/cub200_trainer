@@ -6,7 +6,7 @@ import pytorch_lightning as pl
 import os
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from datetime import datetime
-from pytorch_lightning.callbacks import LearningRateMonitor
+from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 import optuna
 import joblib
 import pathlib
@@ -30,7 +30,13 @@ class LightningTrainer:
             accelerator="gpu",
             devices=1,
             callbacks=[
-                EarlyStopping(monitor="val_loss", mode="min", verbose=True, patience=5)
+                EarlyStopping(monitor="val_loss", mode="min", verbose=True, patience=5),
+                ModelCheckpoint(
+                    monitor="val_loss",
+                    save_last=True,
+                    save_top_k=3,
+                    auto_insert_metric_name="True",
+                ),
             ],
             # ],  # lr_monitor],
             max_epochs=cfg["trainer"]["max_epochs"],

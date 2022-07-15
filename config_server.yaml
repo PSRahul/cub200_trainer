@@ -19,11 +19,11 @@ model:
   num_classes: 200
 
 tune:
-  enable: True
+  enable: False
   max_epochs: 3
   num_trials: 20
 
 trainer:
-  exp_name: "optuna_lr"
-  checkpoint_dir: "checkpoints/ResNet50/optuna_lr"
+  exp_name: "best_lr"
+  checkpoint_dir: "checkpoints/ResNet50/best_lr"
   max_epochs: 200

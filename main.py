@@ -91,6 +91,7 @@ def main():
             cfg,
             data,
         )
+    model.hparams.lr = 8.573650919484533e-05
     print("Chosen Learning Rate", model.hparams.lr)
     trainer.train(model, data)
 
