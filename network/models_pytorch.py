@@ -144,14 +144,17 @@ class ViTB16Model(nn.Module):
         # weights = ResNet18_Weights.DEFAULT
         super().__init__()
         self.model = torch.hub.load(
-            "pytorch/vision:v0.10.0",
-            "resnet50",
+            "facebookresearch/deit:main",
+            "deit_base_patch16_224",
             pretrained=cfg["model"]["use_pretrained"],
         )
         self.model = set_parameter_requires_grad(
             self.model, cfg["model"]["freeze_params"]
         )
-        self.model.fc = nn.Linear(2048, cfg["model"]["num_classes"])
+        print(self.model.head.in_features)
+        self.model.fc = nn.Linear(
+            self.model.head.in_features, cfg["model"]["num_classes"]
+        )
 
         self.relu = nn.ReLU(inplace=False)
 
@@ -167,7 +170,7 @@ class ViTB16Model(nn.Module):
     def get_sample_transforms(self):
         sample_transforms = transforms.Compose(
             [
-                transforms.Resize((224, 224)),
+                transforms.Resize((224, 224), interpolation=3),
                 transforms.ToTensor(),
                 transforms.Normalize(
                     mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
@@ -179,7 +182,7 @@ class ViTB16Model(nn.Module):
     def get_test_transforms(self):
         test_transforms = transforms.Compose(
             [
-                transforms.Resize(256),
+                transforms.Resize(256, interpolation=3),
                 transforms.CenterCrop(224),
                 transforms.ToTensor(),
                 transforms.Normalize(
@@ -193,9 +196,9 @@ class ViTB16Model(nn.Module):
         train_transforms = transforms.Compose(
             [
                 transforms.ColorJitter(brightness=0.3, hue=0.3),
-                # transforms.RandomHorizontalFlip(p=0.5),
-                # transforms.RandomVerticalFlip(p=0.5),
-                transforms.Resize(256),
+                transforms.RandomHorizontalFlip(p=0.5),
+                transforms.RandomVerticalFlip(p=0.5),
+                transforms.Resize(256, interpolation=3),
                 transforms.RandomResizedCrop(224),
                 transforms.ToTensor(),
                 transforms.Normalize(

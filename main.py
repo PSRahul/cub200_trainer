@@ -12,6 +12,7 @@ import os
 from datetime import datetime
 import sys
 
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", type=str, default="config.yaml")
@@ -24,9 +25,6 @@ def load_config(config_file):
         config = yaml.load(f, Loader=SafeLoader)
 
     return config
-
-
-
 
 
 class Logger(object):
@@ -61,7 +59,6 @@ def main():
     sys.stdout = Logger(cfg, log_file)
 
     pytorch_model = ViTB16Model(cfg)
-
     logger_pytorch = logging.getLogger("pytorch_lightning")
 
     if cfg["debug"]:
