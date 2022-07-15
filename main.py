@@ -3,14 +3,14 @@ import tracemalloc
 import yaml
 from data.classification.data_module import ClassificationDataModule
 from yaml.loader import SafeLoader
-from network.model import ResNet18Model, ResNet50Model, ViTB16Model
+from network.models_pytorch import ResNet18Model, ResNet50Model, ViTB16Model
 from trainer import LightningTrainer
 from network.network_module import ClassificationModel
 import argparse
 import logging
 import os
 from datetime import datetime
-
+import sys
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -26,7 +26,7 @@ def load_config(config_file):
     return config
 
 
-import sys
+
 
 
 class Logger(object):
