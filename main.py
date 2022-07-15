@@ -61,6 +61,7 @@ def main():
     pytorch_model_name = globals()[cfg["model"]["name"]]
     pytorch_model = pytorch_model_name(cfg)
     logger_pytorch = logging.getLogger("pytorch_lightning")
+    logger_optuna = logging.getLogger("optuna")
 
     if cfg["debug"]:
         print("Debug Mode Enabled")
@@ -74,14 +75,9 @@ def main():
     logger_pytorch.addHandler(
         logging.FileHandler(os.path.join(trainer.checkpoint_dir, "trainer.log"))
     )
-
-    logging.basicConfig(
-        filename=os.path.join(trainer.checkpoint_dir, "logging.log"),
-        format="%(asctime)s %(message)s",
-        filemode="w",
+    logger_pytorch.addHandler(
+        logging.FileHandler(os.path.join(trainer.checkpoint_dir, "optuna.log"))
     )
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
 
     data = ClassificationDataModule(
         config=cfg, train_transforms=train_transforms, test_transforms=test_transforms
@@ -95,6 +91,7 @@ def main():
             cfg,
             data,
         )
+    print("Chosen Learning Rate", model.hparams.lr)
     trainer.train(model, data)
 
 

@@ -24,6 +24,6 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "ViTB16"
-  checkpoint_dir: "checkpoints/ViTB16"
+  exp_name: "optuna_lr"
+  checkpoint_dir: "checkpoints/ResNet50/optuna_lr"
   max_epochs: 200

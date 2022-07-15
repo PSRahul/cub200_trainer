@@ -25,5 +25,5 @@ tune:
 
 trainer:
   exp_name: "optuna_lr"
-  checkpoint_dir: "checkpoints/ResNet50"
+  checkpoint_dir: "checkpoints/ResNet50/optuna_lr"
   max_epochs: 200
