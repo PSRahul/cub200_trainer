@@ -12,18 +12,18 @@ data:
   test_batch_size: 32
 
 model:
-  name: ResNet50Model
-  tune_name: ResNet50Model
+  name: ViTB16Model
+  tune_name: ViTB16Model
   use_pretrained: True
   freeze_params: False
   num_classes: 200
 
 tune:
-  enable: False
+  enable: True
   max_epochs: 3
   num_trials: 20
 
 trainer:
   exp_name: "best_lr"
-  checkpoint_dir: "checkpoints/ResNet50/best_lr"
+  checkpoint_dir: "checkpoints/ViTB16/optuna"
   max_epochs: 200
