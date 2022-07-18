@@ -19,11 +19,11 @@ model:
   num_classes: 200
 
 tune:
-  enable: True
+  enable: False
   max_epochs: 3
   num_trials: 20
 
 trainer:
-  exp_name: "best_lr"
+  exp_name: "best_lr_2"
   checkpoint_dir: "checkpoints/ViTB16/optuna"
   max_epochs: 200
