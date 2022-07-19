@@ -12,8 +12,8 @@ data:
   test_batch_size: 16
 
 model:
-  name: ResNet50Model
-  tune_name: ResNet50Model
+  name: ViTB16Model
+  tune_name: ViTB16Model
   use_pretrained: True
   freeze_params: False
   num_classes: 200
@@ -23,13 +23,13 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "ResNet50 v1"
-  checkpoint_dir: "checkpoints/ResNet50"
+  exp_name: "ViTv1"
+  checkpoint_dir: "checkpoints/ViTB16Model"
   max_epochs: 200
   lr: None
 
 test:
-  ckpt_path: "/home/psrahul/MasterThesis/Experiments/2/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=11-step=2676.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ResNet50/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=11-step=2676.ckpt"
 
 tune_model: False
 train_model: False
