@@ -87,7 +87,7 @@ def main():
     data.setup()
     model = ClassificationModel(pytorch_model)
 
-    if cfg["trainer"]["lr"] != None:
+    if cfg["trainer"]["lr"] != str("None"):
         model.hparams.lr = float(cfg["trainer"]["lr"])
     else:
         model.hparams.lr = 1e-3
