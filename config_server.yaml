@@ -30,7 +30,7 @@ trainer:
   lr: None #0.00022910501249957582
 
 test:
-  ckpt_path: "/home/rsr/MasterThesis/repo/lightning_fast_trainer/checkpoints/ResNet50/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=11-step=2676.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ResNet50/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=11-step=2676.ckpt"
 
 tune_model: False
 train_model: False
