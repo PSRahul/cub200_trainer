@@ -23,14 +23,14 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "best_lr"
-  checkpoint_dir: "checkpoints/ResNet50/best_lr"
+  exp_name: "ResNet50 v1"
+  checkpoint_dir: "checkpoints/ResNet50"
   max_epochs: 200
   lr: None
 
 test:
-  ckpt_path: "/home/psrahul/MasterThesis/Experiments/2/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=8-step=2007.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/Experiments/2/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=11-step=2676.ckpt"
 
 tune_model: False
-train_model: True
-test_model: False
+train_model: False
+test_model: True

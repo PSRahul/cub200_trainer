@@ -52,6 +52,13 @@ class ClassificationDataModule(pl.LightningDataModule):
                 transform=self.train_transforms_list,
             )
 
+            self.train_for_eval_dataset = ImageFolder(
+                root=os.path.join(
+                    self.cfg["data"]["root_folder"], self.cfg["data"]["train_folder"]
+                ),
+                transform=self.test_transforms_list,
+            )
+
             self.val_dataset = ImageFolder(
                 root=os.path.join(
                     self.cfg["data"]["root_folder"], self.cfg["data"]["val_folder"]
@@ -87,6 +94,14 @@ class ClassificationDataModule(pl.LightningDataModule):
     def test_dataloader(self):
         return DataLoader(
             self.test_dataset,
+            batch_size=self.cfg["data"]["test_batch_size"],
+            num_workers=3,
+            shuffle=False,
+        )
+
+    def train_for_eval_dataloader(self):
+        return DataLoader(
+            self.train_for_eval_dataset,
             batch_size=self.cfg["data"]["test_batch_size"],
             num_workers=3,
             shuffle=False,
