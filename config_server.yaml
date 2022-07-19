@@ -30,8 +30,8 @@ trainer:
   lr: 1e-5
 
 test:
-  ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ViTB16/optuna/16072022_0627/best_lr/version_0/checkpoints/epoch=12-step=2899.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ViTB16Model/19072022_1116/ViT_1e-5/version_0/checkpoints/epoch=33-step=7582.ckpt"
 
 tune_model: False
-train_model: True
-test_model: False
+train_model: False
+test_model: True

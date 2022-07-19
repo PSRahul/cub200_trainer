@@ -23,13 +23,13 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "ViTv1"
+  exp_name: "ViT_1e-5"
   checkpoint_dir: "checkpoints/ViTB16Model"
   max_epochs: 200
-  lr: None
+  lr: 1e-5
 
 test:
-  ckpt_path: "/home/psrahul/MasterThesis/Experiments/3/16072022_0627/best_lr/version_0/checkpoints/epoch=12-step=2899.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/Experiments/5/19072022_1116/ViT_1e-5/version_0/checkpoints/epoch=33-step=7582.ckpt"
 
 tune_model: False
 train_model: False
