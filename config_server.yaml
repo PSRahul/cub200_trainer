@@ -24,10 +24,10 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "ViT_3e-3"
+  exp_name: "ViT_1e-5"
   checkpoint_dir: "checkpoints/ViTB16Model"
   max_epochs: 200
-  lr: 3e-3
+  lr: 1e-5
 
 test:
   ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ViTB16/optuna/16072022_0627/best_lr/version_0/checkpoints/epoch=12-step=2899.ckpt"
