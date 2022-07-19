@@ -55,8 +55,10 @@ def main():
         date_save_string,
     )
     os.makedirs(checkpoint_dir, exist_ok=True)
-    log_file = os.path.join(checkpoint_dir, "log.log")
-    sys.stdout = Logger(cfg, log_file)
+
+    if not cfg["test_model"]:
+        log_file = os.path.join(checkpoint_dir, "log.log")
+        sys.stdout = Logger(cfg, log_file)
 
     pytorch_model_name = globals()[cfg["model"]["name"]]
     pytorch_model = pytorch_model_name(cfg)
@@ -85,15 +87,28 @@ def main():
     data.setup()
     model = ClassificationModel(pytorch_model)
 
-    if cfg["tune"]["enable"]:
+    if cfg["trainer"]["lr"] != None:
+        model.hparams.lr = float(cfg["trainer"]["lr"])
+    else:
+        model.hparams.lr = 1e-3
+
+    if cfg["tune_model"]:
         model.hparams.lr = trainer.optuna_tune(
             pytorch_model_name,
             cfg,
             data,
         )
-    model.hparams.lr = 8.573650919484533e-05
     print("Chosen Learning Rate", model.hparams.lr)
-    trainer.train(model, data)
+
+    if cfg["train_model"]:
+        trainer.train(model, data)
+
+    if cfg["test_model"]:
+        trainer.trainer.test(
+            model=model,
+            dataloaders=data.test_dataloader(),
+            ckpt_path=cfg["test"]["ckpt_path"],
+        )
 
 
 if __name__ == "__main__":

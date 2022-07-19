@@ -1,3 +1,4 @@
+from cgi import test
 from sched import scheduler
 from torchmetrics.functional import accuracy
 import torch
@@ -50,18 +51,18 @@ class ClassificationModel(pl.LightningModule):
         x, y = batch
         y_hat = self.model(x)
         loss = F.cross_entropy(y_hat, y)
-        self.log("test_loss", loss)
-        loss_softmax = F.softmax(y_hat, dim=0)
+        # self.log("test_loss", loss, prog_bar=True)
+        loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
-        self.train_acc(y_acc, y)
         test_acc = accuracy(y_acc, y)
-        self.log("test_acc", test_acc)
+        metrics = {"test_acc": test_acc, "test_loss": loss}
+        self.log_dict(metrics)
+        return metrics
 
     def configure_optimizers(self):
-        optimizer = torch.optim.Adam(
-            self.model.parameters(), lr=0.0002291)
-            #lr=self.hparams.lr
-         # lr=1e-5)
+        optimizer = torch.optim.Adam(self.model.parameters(), self.hparams.lr)
+        # lr=self.hparams.lr
+        # lr=1e-5)
         return optimizer
 
 

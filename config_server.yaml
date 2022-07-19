@@ -27,3 +27,8 @@ trainer:
   exp_name: "best_lr_2"
   checkpoint_dir: "checkpoints/ViTB16/optuna"
   max_epochs: 200
+  lr: 0.00022910501249957582
+
+tune_model: False
+train_model: False
+test_model: True
