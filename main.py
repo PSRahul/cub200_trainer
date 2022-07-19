@@ -87,7 +87,7 @@ def main():
     data.setup()
     model = ClassificationModel(pytorch_model)
 
-    if cfg["trainer"]["lr"] != None:
+    if cfg["trainer"]["lr"] != str("None"):
         model.hparams.lr = float(cfg["trainer"]["lr"])
     else:
         model.hparams.lr = 1e-3
@@ -104,6 +104,21 @@ def main():
         trainer.train(model, data)
 
     if cfg["test_model"]:
+        print("Train Accuracy")
+        trainer.trainer.test(
+            model=model,
+            dataloaders=data.train_for_eval_dataloader(),
+            ckpt_path=cfg["test"]["ckpt_path"],
+        )
+
+        print("Validation Accuracy")
+        trainer.trainer.test(
+            model=model,
+            dataloaders=data.val_dataloader(),
+            ckpt_path=cfg["test"]["ckpt_path"],
+        )
+
+        print("Test Accuracy")
         trainer.trainer.test(
             model=model,
             dataloaders=data.test_dataloader(),

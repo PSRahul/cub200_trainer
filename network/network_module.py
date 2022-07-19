@@ -55,7 +55,7 @@ class ClassificationModel(pl.LightningModule):
         loss_softmax = F.softmax(y_hat, dim=1)
         y_acc = torch.argmax(loss_softmax, axis=1)
         test_acc = accuracy(y_acc, y)
-        metrics = {"test_acc": test_acc, "test_loss": loss}
+        metrics = {"Accuracy": test_acc, "Loss": loss}
         self.log_dict(metrics)
         return metrics
 
