@@ -24,11 +24,14 @@ tune:
   num_trials: 20
 
 trainer:
-  exp_name: "best_lr_2"
+  exp_name: "best_lr_3"
   checkpoint_dir: "checkpoints/ViTB16/optuna"
   max_epochs: 200
   lr: 0.00022910501249957582
 
+test:
+  ckpt_path: "/home/psrahul/MasterThesis/Experiments/2/best_lr/15072022_1550/best_lr/version_0/checkpoints/epoch=8-step=2007.ckpt"
+
 tune_model: False
-train_model: False
-test_model: True
+train_model: True
+test_model: False
