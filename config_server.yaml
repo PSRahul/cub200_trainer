@@ -30,7 +30,7 @@ trainer:
   lr: None #0.00022910501249957582
 
 test:
-  ckpt_path: "sftp://rsr@10.1.1.30:22/mnt/data/home/rsr/MasterThesis/repo/lightning_fast_trainer/checkpoints/ViTB16/optuna/16072022_0627/best_lr/version_0/checkpoints/epoch=12-step=2899.ckpt"
+  ckpt_path: "/home/psrahul/MasterThesis/repo/lightning_fast_trainer/checkpoints/ViTB16/optuna/16072022_0627/best_lr/version_0/checkpoints/epoch=12-step=2899.ckpt"
 
 tune_model: False
 train_model: False
